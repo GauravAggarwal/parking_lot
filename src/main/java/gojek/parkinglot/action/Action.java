@@ -3,8 +3,6 @@ package gojek.parkinglot.action;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
 import gojek.parkinglot.model.Car;
 import gojek.parkinglot.service.ParkingManagerService;
 import gojek.parkinglot.service.ParkingManagerServiceImpl;
@@ -22,7 +20,7 @@ public enum Action {
 		@Override
 		public boolean isValidInput(String input) {
 			String[] inputs = input.split(" ");
-			return inputs.length == 2 && StringUtils.isNumeric(inputs[1]);
+			return inputs.length == 2 && isNumeric(inputs[1]);
 		}
 
 		@Override
@@ -60,7 +58,7 @@ public enum Action {
 		@Override
 		public boolean isValidInput(String input) {
 			String[] inputs = input.split(" ");
-			return inputs.length == 2 && StringUtils.isNumeric(inputs[1]);
+			return inputs.length == 2 && isNumeric(inputs[1]);
 		}
 		
 		@Override
@@ -185,6 +183,10 @@ public enum Action {
 	public static Action decode(String input) {
 		String[] inputs = input.split(" ");
 		return BY_ACTION.get(inputs[0]);
+	}
+	
+	private static boolean isNumeric(String string) {
+        return string.matches("-?\\d+(\\.\\d+)?");
 	}
 	
 	public abstract void execute(String input);

@@ -1,13 +1,9 @@
 package gojek.parkinglot.service;
 
 import java.util.Map.Entry;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import org.apache.commons.lang3.StringUtils;
 
 import gojek.parkinglot.model.Vehicle;
 
@@ -60,14 +56,15 @@ public class ParkingManagerServiceImpl implements ParkingManagerService {
 	}
 
 	public void printRegNumberForColor(String color) {
-		List<String> regNumbers = new ArrayList<>();
+		StringBuilder buffer = new StringBuilder("");
 		for (Vehicle vehicle : parkingSpace.values()) {
 			if (color.equalsIgnoreCase(vehicle.getColor())) {
-				regNumbers.add(vehicle.getRegistrationNo());
+				buffer.append(vehicle.getRegistrationNo()).append(", ");
 			}
 		}
-		if (!regNumbers.isEmpty()) {
-			System.out.println(StringUtils.join(regNumbers, ", "));
+		if (buffer.length()!=0) {
+			buffer.replace(buffer.length()-2, buffer.length(), "");
+			System.out.println(buffer.toString());
 		} else {
 			System.out.println("No cars for this color : " + color);
 		}
@@ -75,15 +72,16 @@ public class ParkingManagerServiceImpl implements ParkingManagerService {
 	}
 
 	public void printSlotNumbersForColor(String color) {
-		List<Integer> slots = new ArrayList<>();
+		StringBuilder buffer = new StringBuilder("");
 		for (Entry<Integer, Vehicle> entry : parkingSpace.entrySet()) {
 			Vehicle vehicle = entry.getValue();
 			if (color.equalsIgnoreCase(vehicle.getColor())) {
-				slots.add(entry.getKey());
+				buffer.append(entry.getKey()).append(", ");
 			}
 		}
-		if (!slots.isEmpty()) {
-			System.out.println(StringUtils.join(slots, ", "));
+		if (buffer.length()!=0) {
+			buffer.replace(buffer.length()-2, buffer.length(), "");
+			System.out.println(buffer.toString());
 		} else {
 			System.out.println("No cars for this color : " + color);
 		}
