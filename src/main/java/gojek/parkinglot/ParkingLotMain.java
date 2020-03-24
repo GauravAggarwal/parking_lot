@@ -38,7 +38,6 @@ public class ParkingLotMain {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -65,7 +64,6 @@ public class ParkingLotMain {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -74,6 +72,6 @@ public class ParkingLotMain {
 		for (Action action : Action.values()) {
 			action.printUsage();
 		}
-		System.out.println("\n --------------------------------------- \n ");
+		System.out.println("\n--------------------------------------- \n ");
 	}
 }
