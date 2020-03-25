@@ -7,7 +7,7 @@ import gojek.parkinglot.model.Car;
 import gojek.parkinglot.service.ParkingManagerService;
 import gojek.parkinglot.service.ParkingManagerServiceImpl;
 
-public enum Action {
+public enum Actions {
 
 	CREATE_PARKING_LOT("create_parking_lot") {
 		@Override
@@ -161,26 +161,26 @@ public enum Action {
 	
 	private static ParkingManagerService parkingManager = new ParkingManagerServiceImpl();
 
-	private static final Map<String, Action> BY_ACTION = new HashMap<>();
+	private static final Map<String, Actions> BY_ACTION = new HashMap<>();
     
     static {
-        for (Action e: values()) {
-        	BY_ACTION.put(e.getAction().toUpperCase(), e);
+        for (Actions e: values()) {
+        	BY_ACTION.put(e.getCommand().toUpperCase(), e);
         }
     }
  
 
-	private String action;
+	private String command;
 	
-	public String getAction() {
-		return action;
+	public String getCommand() {
+		return command;
 	}
 
-	private Action(String action) {
-		this.action = action;
+	private Actions(String command) {
+		this.command = command;
 	}
 	
-	public static Action decode(String input) {
+	public static Actions decode(String input) {
 		String[] inputs = input.split(" ");
 		return BY_ACTION.get(inputs[0].toUpperCase());
 	}

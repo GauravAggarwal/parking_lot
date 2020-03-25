@@ -15,6 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import gojek.parkinglot.processor.FileProcessor;
+import gojek.parkinglot.processor.Processor;
+
 public class ParkingLotMainTest {
 	
 	private final ByteArrayOutputStream	outContent	= new ByteArrayOutputStream();
@@ -34,27 +37,6 @@ public class ParkingLotMainTest {
 			"slot_numbers_for_cars_with_colour White\r\n" + 
 			"slot_number_for_registration_number KA-01-HH-3141\r\n" + 
 			"slot_number_for_registration_number MH-04-AY-1111";
-	
-	private final String outputText = "Created a parking lot with 6 slots  \r\n" + 
-			"Allocated slot number: 1\r\n" + 
-			"Allocated slot number: 2\r\n" + 
-			"Allocated slot number: 3\r\n" + 
-			"Allocated slot number: 4\r\n" + 
-			"Allocated slot number: 5\r\n" + 
-			"Allocated slot number: 6\r\n" + 
-			"Slot number 4 is free \r\n" + 
-			"Slot No.	Registration No.	Colour\r\n" + 
-			"1		KA-01-HH-1234		White\r\n" + 
-			"2		KA-01-HH-9999		White\r\n" + 
-			"3		KA-01-BB-0001		Black\r\n" + 
-			"5		KA-01-HH-2701		Blue\r\n" + 
-			"6		KA-01-HH-3141		Black\r\n" + 
-			"Allocated slot number: 4\r\n" + 
-			"Sorry, parking lot is full\r\n" + 
-			"KA-01-HH-1234, KA-01-HH-9999, KA-01-P-333\r\n" + 
-			"1, 2, 4\r\n" + 
-			"6\r\n" + 
-			"Not found \r\n";
 	
 	@Before
 	public void init()
@@ -168,8 +150,28 @@ public class ParkingLotMainTest {
         File file = path.toFile();
         Files.write(path, inputText.getBytes(StandardCharsets.UTF_8));
         file.deleteOnExit();
-		ParkingLotMain.fileReader(file);
-		assertTrue(outContent.toString().equals(outputText));
+        Processor fileProcessor = new FileProcessor(file);
+        fileProcessor.process();
+		assertTrue(outContent.toString().contains("Created a parking lot with 6 slots"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 1"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 2"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 3"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 4"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 5"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 6"));
+		assertTrue(outContent.toString().contains("Slot number 4 is free "));
+		assertTrue(outContent.toString().contains("Slot No.	Registration No.	Colour"));
+		assertTrue(outContent.toString().contains("1		KA-01-HH-1234		White"));
+		assertTrue(outContent.toString().contains("2		KA-01-HH-9999		White"));
+		assertTrue(outContent.toString().contains("3		KA-01-BB-0001		Black"));
+		assertTrue(outContent.toString().contains("5		KA-01-HH-2701		Blue"));
+		assertTrue(outContent.toString().contains("6		KA-01-HH-3141		Black"));
+		assertTrue(outContent.toString().contains("Allocated slot number: 4"));
+		assertTrue(outContent.toString().contains("Sorry, parking lot is full"));
+		assertTrue(outContent.toString().contains("KA-01-HH-1234, KA-01-HH-9999, KA-01-P-333"));
+		assertTrue(outContent.toString().contains("1, 2, 4"));
+		assertTrue(outContent.toString().contains("6"));
+		assertTrue(outContent.toString().contains("Not found "));
     }
 	
 	public void testApp()
