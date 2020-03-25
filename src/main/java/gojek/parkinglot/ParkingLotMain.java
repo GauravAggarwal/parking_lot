@@ -8,31 +8,36 @@ import java.io.InputStreamReader;
 import gojek.parkinglot.action.Action;
 
 public class ParkingLotMain {
-	
+
 	public static void main(String[] args) {
 
 		switch (args.length) {
-		case 0: 
+		case 0:
 			commandLineReader();
 			break;
 		case 1:
-			fileReader(args);
+			fileReader(new File(args[0]));
 			break;
 		default:
 			System.out.println("Invalid input. Usage Style: java -jar <jar_file_path> <input_file_path>");
 		}
 	}
 
-	private static void fileReader(String[] args) {
-		try (BufferedReader bufferReader = new BufferedReader(new FileReader(new File(args[0])));) {
+	static void fileReader(File file) {
+		try (BufferedReader bufferReader = new BufferedReader(new FileReader(file))) {
 			String input = null;
 			int lineNo = 1;
 			while ((input = bufferReader.readLine()) != null) {
+				input = input.trim();
 				Action action = Action.decode(input);
-				if (action != null && action.isValidInput(input)) {
-					action.execute(input);
-				} else {
-					System.out.println("Incorrect Command Found at line: " + lineNo + " ,Input: " + input);
+				if (action != null) {
+					if (action.equals(Action.EXIT)) {
+						break;
+					} else if (!action.isValidInput(input)) {
+						System.out.println("Incorrect Command Found at line: " + lineNo + " ,Input: " + input);
+					} else {
+						action.execute(input);
+					}
 				}
 				lineNo++;
 			}
@@ -42,21 +47,26 @@ public class ParkingLotMain {
 	}
 
 	private static void commandLineReader() {
-		String input;
 		printUsage();
 		try (BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));) {
 
+			String input;
 			while (true) {
-				input = bufferReader.readLine().trim();
-				Action action = Action.decode(input);
-				if (action != null) {
-					if (action.equals(Action.EXIT)) {
-						break;
-					} else if (!action.isValidInput(input)) {
-						System.out.println("Type command in correct format as given below ");
-						action.printUsage();
+				input = bufferReader.readLine();
+				if (input != null) {
+					input = input.trim();
+					Action action = Action.decode(input);
+					if (action != null) {
+						if (action.equals(Action.EXIT)) {
+							break;
+						} else if (!action.isValidInput(input)) {
+							System.out.println("Type command in correct format as given below ");
+							action.printUsage();
+						} else {
+							action.execute(input);
+						}
 					} else {
-						action.execute(input);
+						printUsage();
 					}
 				} else {
 					printUsage();

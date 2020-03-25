@@ -12,9 +12,9 @@ public interface ParkingManagerService {
 
 	public void status();
 	
-	public void printRegNumberForColor(String color);
+	public void printRegNumberForColour(String colour);
 
-	public void printSlotNumbersForColor(String color);
+	public void printSlotNumbersForColour(String colour);
 
 	public void printSlotNumberForRegNo(String registrationNo);
 	

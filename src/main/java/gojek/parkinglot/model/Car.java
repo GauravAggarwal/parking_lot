@@ -7,13 +7,13 @@ package gojek.parkinglot.model;
 public class Car extends Vehicle {
 
 	public Car(CarBuilder carBuilder) {
-		super(carBuilder.registrationNo, carBuilder.color, 4);
+		super(carBuilder.registrationNo, carBuilder.colour, 4);
 	}
 
 	public static class CarBuilder {
 
 		private String registrationNo = null;
-		private String color = null;
+		private String colour = null;
 
 		public CarBuilder() {
 			super();
@@ -24,8 +24,8 @@ public class Car extends Vehicle {
 			return this;
 		}
 
-		public CarBuilder color(String color) {
-			this.color = color;
+		public CarBuilder colour(String colour) {
+			this.colour = colour;
 			return this;
 		}
 

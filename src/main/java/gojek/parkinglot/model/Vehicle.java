@@ -7,13 +7,13 @@ package gojek.parkinglot.model;
 public abstract class Vehicle {
 	
 	private String registrationNo = null;
-	private String color = null;
+	private String colour = null;
 	private int numberOfTires;
 	
-	public Vehicle(String registrationNo, String color, int numberOfTires) {
+	public Vehicle(String registrationNo, String colour, int numberOfTires) {
 		super();
 		this.registrationNo = registrationNo;
-		this.color = color;
+		this.colour = colour;
 		this.numberOfTires = numberOfTires;
 	}
 
@@ -25,12 +25,12 @@ public abstract class Vehicle {
 		this.registrationNo = registrationNo;
 	}
 
-	public String getColor() {
-		return color;
+	public String getColour() {
+		return colour;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setColour(String colour) {
+		this.colour = colour;
 	}
 
 	public int getNumberOfTires() {

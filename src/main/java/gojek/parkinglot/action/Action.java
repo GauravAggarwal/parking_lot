@@ -32,7 +32,7 @@ public enum Action {
 		@Override
 		public void execute(String input) {
 			String[] inputs = input.split(" ");
-			Car car = new Car.CarBuilder().registrationNo(inputs[1]).color(inputs[2]).build();
+			Car car = new Car.CarBuilder().registrationNo(inputs[1]).colour(inputs[2]).build();
 			parkingManager.park(car);
 		}
 
@@ -84,11 +84,11 @@ public enum Action {
 			
 		}
 	},
-	REG_NUMBER_FOR_CARS_WITH_COLOR("registration_numbers_for_cars_with_color") {
+	REG_NUMBER_FOR_CARS_WITH_COLOR("registration_numbers_for_cars_with_colour") {
 		@Override
 		public void execute(String input) {
 			String[] inputs = input.split(" ");
-			parkingManager.printRegNumberForColor(inputs[1]);
+			parkingManager.printRegNumberForColour(inputs[1]);
 		}
 
 		@Override
@@ -99,15 +99,15 @@ public enum Action {
 		
 		@Override
 		public void printUsage() {
-			System.out.println("Get registration number for cars with color : registration_numbers_for_cars_with_color {car color} ");
+			System.out.println("Get registration number for cars with colour : registration_numbers_for_cars_with_colour {car colour} ");
 			
 		}
 	},
-	SLOT_NUMBERS_FOR_CARS_WITH_COLOR("slot_numbers_for_cars_with_color") {
+	SLOT_NUMBERS_FOR_CARS_WITH_COLOR("slot_numbers_for_cars_with_colour") {
 		@Override
 		public void execute(String input) {
 			String[] inputs = input.split(" ");
-			parkingManager.printSlotNumbersForColor(inputs[1]);
+			parkingManager.printSlotNumbersForColour(inputs[1]);
 		}
 
 		@Override
@@ -118,7 +118,7 @@ public enum Action {
 		
 		@Override
 		public void printUsage() {
-			System.out.println("Get slot number for cars with color : slot_numbers_for_cars_with_color {car color} ");
+			System.out.println("Get slot number for cars with colour : slot_numbers_for_cars_with_colour {car colour} ");
 			
 		}
 	},
@@ -165,7 +165,7 @@ public enum Action {
     
     static {
         for (Action e: values()) {
-        	BY_ACTION.put(e.getAction(), e);
+        	BY_ACTION.put(e.getAction().toUpperCase(), e);
         }
     }
  
@@ -182,7 +182,7 @@ public enum Action {
 	
 	public static Action decode(String input) {
 		String[] inputs = input.split(" ");
-		return BY_ACTION.get(inputs[0]);
+		return BY_ACTION.get(inputs[0].toUpperCase());
 	}
 	
 	private static boolean isNumeric(String string) {
